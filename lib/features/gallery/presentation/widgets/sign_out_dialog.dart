@@ -8,7 +8,6 @@ class SignoutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.transparent,
       child: Container(
         padding: Dimensions.getEdgeInsetsAll(context, 22),
         height: Dimensions.getConvertedHeightSize(context, 291),
@@ -16,7 +15,6 @@ class SignoutDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             Dimensions.getConvertedWidthSize(context, 15),
           ),
-          color: Colors.white,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,10 +2,12 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/strings.dart';
+import 'package:imageGallery/core/ui/theme.dart';
 import 'package:imageGallery/features/gallery/presentation/models/image_gallery.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/gallery_grid.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/gallery_list.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/sign_out_dialog.dart';
+import 'package:provider/provider.dart';
 
 class GalleryScreenPage extends StatefulWidget {
   @override
@@ -48,7 +50,6 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
         Container(
           padding:
               Dimensions.getEdgeInsets(context, top: 50, left: 30, right: 30),
-          color: Colors.white,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -85,16 +86,15 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
           ),
         ),
         Container(
-          color: Colors.white,
           padding:
               Dimensions.getEdgeInsets(context, top: 50, left: 30, right: 30),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               TabBar(
-                indicatorColor: Colors.black,
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.black.withOpacity(.25),
+                indicatorColor: _buildThemetab(),
+                labelColor: _buildThemetab(),
+                unselectedLabelColor: _buildThemetab().withOpacity(.25),
                 indicatorSize: TabBarIndicatorSize.tab,
                 tabs: <Widget>[
                   //Grid Tab
@@ -127,12 +127,17 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
               Container(
             width: double.infinity,
             padding: Dimensions.getEdgeInsets(context, left: 30, right: 30),
-            color: Colors.white,
             child: tabs[_currentTab],
           ),
         ),
       ],
     );
+  }
+
+  Color _buildThemetab() {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+
+    return _themeChanger.getThemeData() == false ? Colors.black : Colors.white;
   }
 
   @override

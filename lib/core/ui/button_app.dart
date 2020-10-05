@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
+import 'package:imageGallery/core/ui/theme.dart';
+import 'package:provider/provider.dart';
 
 class ButtonApp extends StatelessWidget {
   final String title;
@@ -19,6 +21,7 @@ class ButtonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return Row(
       children: <Widget>[
         Expanded(
@@ -26,7 +29,9 @@ class ButtonApp extends StatelessWidget {
             padding: Dimensions.getEdgeInsets(context, top: 18, bottom: 18),
             shape: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.transparent,
+                color: _themeChanger.getThemeData() == false
+                    ? Colors.white
+                    : Colors.transparent,
                 width: Dimensions.getConvertedWidthSize(context, 2),
               ),
               borderRadius: BorderRadius.circular(
@@ -43,12 +48,13 @@ class ButtonApp extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: Dimensions.getTextSize(context, 20),
-                    color: (type == ButtonType.BUTTON_BLACK)
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                      fontWeight: FontWeight.w300,
+                      fontSize: Dimensions.getTextSize(context, 20),
+                      color: type == ButtonType.BUTTON_BLACK
+                          ? Colors.white
+                          : _themeChanger.getThemeData() == false
+                              ? Colors.black
+                              : Colors.white),
                 ),
                 (suffixIcon != null)
                     ? Row(
@@ -57,10 +63,10 @@ class ButtonApp extends StatelessWidget {
                             width:
                                 Dimensions.getConvertedWidthSize(context, 15),
                           ),
-                          Icon(suffixIcon,
-                              size:
-                                  Dimensions.getConvertedWidthSize(context, 25),
-                              color: Colors.white),
+                          Icon(
+                            suffixIcon,
+                            size: Dimensions.getConvertedWidthSize(context, 25),
+                          ),
                         ],
                       )
                     : Container(),
