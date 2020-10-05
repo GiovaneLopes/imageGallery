@@ -4,6 +4,8 @@ import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/theme.dart';
 import 'package:imageGallery/features/gallery/presentation/models/image_gallery.dart';
+import 'package:imageGallery/features/gallery/presentation/widgets/button_app_bar_widget.dart';
+import 'package:imageGallery/features/gallery/presentation/widgets/floating_action_button_widget.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/gallery_grid.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/gallery_list.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/sign_out_dialog.dart';
@@ -18,13 +20,13 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
   List<ImageGallery> _images = [
     ImageGallery(
         imageLink:
-            "https://lh3.googleusercontent.com/proxy/fUxz8UK3BO1UCfJQAUIhlqRnMyVWUe1qxnpWOAOIrBOi8IoT4QAseoGgwfzdRW-l_qsHi6WjsWVsSIiDDDzMnckGzZnut1Fj2Y-POvMtUym8wAdNhyFnHqU",
+            "https://miro.medium.com/max/250/1*rd_veZDE2LL02Ov9uxfsRg.png",
         name: "Vazio",
         discription: "Teste",
         time: "05/10/2020"),
     ImageGallery(
         imageLink:
-            "https://lh3.googleusercontent.com/proxy/fUxz8UK3BO1UCfJQAUIhlqRnMyVWUe1qxnpWOAOIrBOi8IoT4QAseoGgwfzdRW-l_qsHi6WjsWVsSIiDDDzMnckGzZnut1Fj2Y-POvMtUym8wAdNhyFnHqU",
+            "https://miro.medium.com/max/250/1*rd_veZDE2LL02Ov9uxfsRg.png",
         name: "Vazio",
         discription: "Teste",
         time: "05/10/2020"),
@@ -146,6 +148,9 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
       length: 2,
       child: Scaffold(
         body: _buildBody(context, _images),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButtonWidget(),
+        bottomNavigationBar: BottomAppBarWidget(),
       ),
     );
   }

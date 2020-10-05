@@ -34,7 +34,7 @@ class MaterialAppWithTheme extends StatelessWidget {
         title: 'Flutter Demo',
         theme: theme.getTheme(),
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => SplashPage(),
+          '/': (BuildContext context) => GalleryScreenPage(),
           '/authPage': (BuildContext context) => AuthPage(),
           '/galleryScreen': (BuildContext context) => GalleryScreenPage(),
           '/verifyEmailPage': (BuildContext context) => VerifyEmailPage(),
