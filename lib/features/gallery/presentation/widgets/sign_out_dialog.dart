@@ -1,8 +1,10 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
+import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
 
 class SignoutDialog extends StatelessWidget {
   @override
@@ -61,7 +63,11 @@ class SignoutDialog extends StatelessWidget {
             // Yes button
             ButtonApp(
               title: Strings(context).yes,
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(SignOutEvent());
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/authPage', (r) => false);
+              },
               type: ButtonType.BUTTON_WHITE,
             ),
             // No button

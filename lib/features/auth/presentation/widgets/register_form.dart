@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/input_validators/compare_values_input_validator.dart';
 import 'package:imageGallery/core/input_validators/email_input_validator.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
@@ -6,6 +7,10 @@ import 'package:imageGallery/core/resources/keys.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
 import 'package:imageGallery/core/ui/custom_text_form_field.dart';
+import 'package:imageGallery/core/ui/loading_widget.dart';
+import 'package:imageGallery/core/utils/failure_to_messages_converter.dart';
+import 'package:imageGallery/features/auth/domain/entities/user.dart';
+import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -112,10 +117,42 @@ class _RegisterFormState extends State<RegisterForm> {
       return;
     }
     _formKey.currentState.save();
+    BlocProvider.of<AuthBloc>(context).add(
+      SignUpEvent(
+        user: User(
+          name: _formData[Keys.LABEL_NAME],
+          email: _formData[Keys.LABEL_EMAIL],
+        ),
+        password: _formData[Keys.LABEL_PASSWORD],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildForm(context);
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                FailureToMessagesConverter().convert(context, state.failure),
+              ),
+            ),
+          );
+        } else if (state is EmailNotVerifiedState) {
+          Navigator.pushReplacementNamed(context, '/verifyEmailPage');
+        }
+      },
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is Loading) {
+            return LoadingWidget(_buildForm(context));
+          } else {
+            return _buildForm(context);
+          }
+        },
+      ),
+    );
   }
 }

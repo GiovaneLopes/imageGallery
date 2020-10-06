@@ -1,9 +1,13 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/images.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
+import 'package:imageGallery/core/ui/loading_widget.dart';
+import 'package:imageGallery/core/utils/failure_to_messages_converter.dart';
+import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
 
 class VerifyEmailPage extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
@@ -31,20 +35,16 @@ class VerifyEmailPage extends StatelessWidget {
               // Email verified button
               ButtonApp(
                 title: Strings(context).emailVerified,
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<AuthBloc>(context).add(ConfirmEmailVerifiedEvent());
+                },
                 type: ButtonType.BUTTON_BLACK,
               ),
               // Email email button
               ButtonApp(
                 title: Strings(context).resendTitle,
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (BuildContext context) {
-                      return _buildSendEmailDialog();
-                    },
-                  );
+                  BlocProvider.of<AuthBloc>(context).add(ResentEmailEvent());
                 },
                 type: ButtonType.BUTTON_WHITE,
               )
@@ -121,7 +121,35 @@ class VerifyEmailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(context),
+      body: BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                FailureToMessagesConverter().convert(context, state.failure),
+              ),
+            ),
+          );
+        } else if (state is Loaded) {
+          Navigator.pushNamed(context, "/galleryScreen");
+        } else if (state is EmailResent) {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return _buildSendEmailDialog();
+            },
+          );
+        }
+      }, child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is Loading) {
+            return LoadingWidget(_buildBody(context));
+          } else {
+            return _buildBody(context);
+          }
+        },
+      )),
     );
   }
 }
