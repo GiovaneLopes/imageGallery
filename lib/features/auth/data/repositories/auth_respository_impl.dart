@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:imageGallery/core/error/exception.dart';
 import 'package:imageGallery/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:imageGallery/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:imageGallery/features/auth/data/models/user_model.dart';
 import 'package:meta/meta.dart';
 import 'package:imageGallery/core/platform/networkinfo.dart';
@@ -11,10 +12,13 @@ import 'package:imageGallery/features/auth/domain/repositories/auth_repository.d
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
+  final AuthLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
   AuthRepositoryImpl(
-      {@required this.remoteDataSource, @required this.networkInfo});
+      {@required this.remoteDataSource,
+      @required this.localDataSource,
+      @required this.networkInfo});
 
   @override
   Future<Either<Failure, String>> signUp(User user, String password) async {
@@ -22,6 +26,7 @@ class AuthRepositoryImpl extends AuthRepository {
       try {
         final String tokenToSave =
             await remoteDataSource.signUp(UserModel.fromEntity(user), password);
+        localDataSource.cacheUserToken(tokenToSave);
         return Right(tokenToSave);
       } on ServerException {
         return Left(ServerFailure());
@@ -73,6 +78,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         final String userId = await remoteDataSource.signIn(email, password);
+        localDataSource.cacheUserToken(userId);
         return Right(userId);
       } on ServerException {
         return Left(ServerFailure());
@@ -106,7 +112,37 @@ class AuthRepositoryImpl extends AuthRepository {
     if (await networkInfo.isConnected) {
       return await sendRequest(makeRequest: () async {
         await remoteDataSource.signOut();
+        return Right(await localDataSource.cleanCache());
       });
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, EnumUserStatus>> getUserStatus() async {
+    String userId;
+    try {
+      userId = await localDataSource.getUserToken();
+      if (userId == null) {
+        return Right(EnumUserStatus.IsntLoggedIn);
+      }
+    } on CacheException {
+      return Right(EnumUserStatus.IsntLoggedIn);
+    }
+    if (await networkInfo.isConnected) {
+      try {
+        String user = await localDataSource.getUserToken();
+        if (user == null) {
+          return Right(EnumUserStatus.IsntLoggedIn);
+        } else {
+          return Right(EnumUserStatus.IsLoggedIn);
+        }
+      } on ServerException {
+        return Left(ServerFailure());
+      } on PlatformException catch (e) {
+        return Left(PlatformFailure(code: e.code, message: e.message));
+      }
     } else {
       return Left(NoInternetConnectionFailure());
     }

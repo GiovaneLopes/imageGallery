@@ -5,8 +5,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imageGallery/core/platform/networkinfo.dart';
+import 'package:imageGallery/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:imageGallery/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:imageGallery/features/auth/domain/usecases/confirm_email_verified.dart';
+import 'package:imageGallery/features/auth/domain/usecases/get_user_status.dart';
 import 'package:imageGallery/features/auth/domain/usecases/recover_password.dart';
 import 'package:imageGallery/features/auth/domain/usecases/send_email_verification.dart';
 import 'package:imageGallery/features/auth/domain/usecases/sign_out.dart';
@@ -47,6 +49,7 @@ void _initAuth() {
       sendEmailVerification: sl(),
       confirmEmailVerified: sl(),
       signOut: sl(),
+      getUserStatus: sl(),
     ),
   );
 
@@ -57,11 +60,13 @@ void _initAuth() {
   sl.registerLazySingleton(() => SendEmailVerification(sl()));
   sl.registerLazySingleton(() => ConfirmEmailVerified(sl()));
   sl.registerLazySingleton(() => SignOut(sl()));
+  sl.registerLazySingleton(() => GetUserStatus(sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       networkInfo: sl(),
+      localDataSource: sl(),
       remoteDataSource: sl(),
     ),
   );
@@ -71,6 +76,11 @@ void _initAuth() {
     () => AuthRemoteDataSourceImpl(
       firebaseAuth: sl(),
       firebaseFirestore: sl(),
+    ),
+  );
+  sl.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImpl(
+      sharedPreferences: sl(),
     ),
   );
 }

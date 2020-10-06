@@ -15,4 +15,6 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> recoverPassword(String email);
 
   Future<Either<Failure, bool>> confirmEmailVerified();
+
+  Future<Either<Failure, EnumUserStatus>> getUserStatus();
 }
