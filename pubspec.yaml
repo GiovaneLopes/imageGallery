@@ -43,7 +43,7 @@ dependencies:
   # Image picker
   image_picker: ^0.6.7+4
   # Local cache
-  shared_preferences: ^0.5.6
+  shared_preferences: ^0.5.12
   # Internationalization
   internationalization: ^2.0.0
   # Firebase

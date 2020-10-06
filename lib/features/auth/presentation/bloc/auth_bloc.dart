@@ -7,7 +7,9 @@ import 'package:imageGallery/core/error/failure.dart';
 import 'package:imageGallery/core/usecases/usecase.dart';
 import 'package:imageGallery/features/auth/domain/entities/user.dart';
 import 'package:imageGallery/features/auth/domain/usecases/confirm_email_verified.dart';
-import 'package:imageGallery/features/auth/domain/usecases/recover_password.dart';
+import 'package:imageGallery/features/auth/domain/usecases/get_user_status.dart';
+import 'package:imageGallery/features/auth/domain/usecases/recover_password.dart'
+    as recover_password;
 import 'package:imageGallery/features/auth/domain/usecases/send_email_verification.dart';
 import 'package:imageGallery/features/auth/domain/usecases/sign_out.dart';
 import 'package:imageGallery/features/auth/domain/usecases/sing_in.dart'
@@ -24,22 +26,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final sign_in.SignIn signIn;
   final SendEmailVerification sendEmailVerification;
   final ConfirmEmailVerified confirmEmailVerified;
-  final RecoverPassword recoverPassword;
+  final recover_password.RecoverPassword recoverPassword;
   final SignOut signOut;
+  final GetUserStatus getUserStatus;
 
-  AuthBloc(
-      {@required this.signUp,
-      @required this.signIn,
-      @required this.recoverPassword,
-      @required this.sendEmailVerification,
-      @required this.confirmEmailVerified,
-      @required this.signOut})
-      : assert(signUp != null),
+  AuthBloc({
+    @required this.signUp,
+    @required this.signIn,
+    @required this.recoverPassword,
+    @required this.sendEmailVerification,
+    @required this.confirmEmailVerified,
+    @required this.signOut,
+    @required this.getUserStatus,
+  })  : assert(signUp != null),
         assert(signIn != null),
         assert(recoverPassword != null),
         assert(sendEmailVerification != null),
         assert(confirmEmailVerified != null),
-        assert(signOut != null);
+        assert(signOut != null)    {
+    this.add(
+      GetUserStatusEvent(),
+    );
+  }
 
   @override
   AuthState get initialState => AuthInitial();
@@ -68,12 +76,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield* _eitherLoadedOrErrorStateWithString(failureOrString);
     } else if (event is RecoverPasswordEvent) {
       yield Loading();
-      var failureOrVoid = await recoverPassword(Params(email: event.email));
+      var failureOrVoid =
+          await recoverPassword(recover_password.Params(email: event.email));
       yield* _eitherRecoverSentOrErrorStateWithVoid(failureOrVoid);
     } else if (event is SignOutEvent) {
       yield Loading();
       var failureOrVoid = await signOut(NoParams());
       yield* _eitherSignedOutOrErrorStateWithVoid(failureOrVoid);
+    } else if (event is GetUserStatusEvent) {
+      yield Loading();
+      var failureOrStatus = await getUserStatus(NoParams());
+      yield* _eitherLoadedOrError(failureOrStatus);
     }
   }
 
@@ -136,5 +149,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (result) => SignedOut(),
     );
+  }
+
+  Stream<AuthState> _eitherLoadedOrError(
+    Either<Failure, EnumUserStatus> failureOrStatus,
+  ) async* {
+    yield failureOrStatus.fold((failure) {
+      return Error(failure: failure);
+    }, (status) {
+      if (status == EnumUserStatus.IsntLoggedIn) {
+        return UserNotLoggedIn();
+      } else if (status == EnumUserStatus.IsLoggedIn) {
+        return Logged();
+      } else {
+        return Error(failure: ServerFailure());
+      }
+    });
   }
 }

@@ -1,4 +1,7 @@
 class Keys {
+  //Local Data Source
+  static const String CACHED_USER_ID = "CACHED_USER_ID";
+  static const String CACHED_USER_TOKEN = "CACHED_USER_TOKEN";
   // Register page
   static const String LABEL_NAME = "LABEL_NAME";
   static const String LABEL_EMAIL = "LABEL_EMAIL";
