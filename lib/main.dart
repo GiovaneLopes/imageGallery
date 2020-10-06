@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:imageGallery/features/auth/presentation/pages/splash_page.dart';
 import 'package:imageGallery/features/gallery/presentation/pages/gallery_screen_page.dart';
@@ -7,14 +8,21 @@ import 'package:internationalization/internationalization.dart';
 import 'package:provider/provider.dart';
 
 import 'core/ui/theme.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/auth_page.dart';
 import 'features/auth/presentation/pages/verify_email_page.dart';
+import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
+  await di.init();
   await Internationalization.loadConfigurations();
-  runApp(MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<AuthBloc>(
+      create: (_) => di.sl<AuthBloc>(),
+    ),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
