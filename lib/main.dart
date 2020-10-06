@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:imageGallery/features/auth/presentation/pages/splash_page.dart';
+import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dart';
 import 'package:imageGallery/features/gallery/presentation/pages/gallery_screen_page.dart';
 import 'package:internationalization/internationalization.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,9 @@ void main() async {
       providers: [
         BlocProvider<AuthBloc>(
           create: (_) => di.sl<AuthBloc>(),
+        ),
+        BlocProvider<GalleryBloc>(
+          create: (_) => di.sl<GalleryBloc>(),
         ),
       ],
       child: MyApp(),

@@ -38,6 +38,7 @@ class Strings {
   String cameraTitle;
   String galleryTitle;
   String chooseImageSource;
+  String noImage;
 
   Strings(this.context) {
     // Validation empty message
@@ -62,6 +63,7 @@ class Strings {
     cameraTitle = intl.Strings.of(context).valueOf("camera_title");
     galleryTitle = intl.Strings.of(context).valueOf("gallery_title");
     chooseImageSource = intl.Strings.of(context).valueOf("choose_image_source");
+    noImage = intl.Strings.of(context).valueOf("no_image_text");
     // Verify email page
     emailVerified = intl.Strings.of(context).valueOf("email_verified");
     emailSentSuccessfully =

@@ -1,9 +1,13 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/strings.dart';
+import 'package:imageGallery/core/ui/loading_widget.dart';
 import 'package:imageGallery/core/ui/theme.dart';
-import 'package:imageGallery/features/gallery/presentation/models/image_gallery.dart';
+import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart';
+import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dart'
+    as _galleryBloc;
 import 'package:imageGallery/features/gallery/presentation/widgets/button_app_bar_widget.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/floating_action_button_widget.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/gallery_grid.dart';
@@ -17,27 +21,14 @@ class GalleryScreenPage extends StatefulWidget {
 }
 
 class _GalleryScreenPageState extends State<GalleryScreenPage> {
-  List<ImageGallery> _images = [
-    ImageGallery(
-        imageLink:
-            "https://miro.medium.com/max/250/1*rd_veZDE2LL02Ov9uxfsRg.png",
-        name: "Vazio",
-        discription: "Teste",
-        time: "05/10/2020"),
-    ImageGallery(
-        imageLink:
-            "https://miro.medium.com/max/250/1*rd_veZDE2LL02Ov9uxfsRg.png",
-        name: "Vazio",
-        discription: "Teste",
-        time: "05/10/2020"),
-  ];
+  List<ImageGallery> _images;
   int _currentTab = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _images = null;
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _images = null;
+  }
 
   Widget _buildBody(BuildContext context, List<ImageGallery> images) {
     List<Widget> tabs = [
@@ -147,7 +138,28 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        body: _buildBody(context, _images),
+        body: BlocListener<_galleryBloc.GalleryBloc, _galleryBloc.GalleryState>(
+          listener: (context, state) {
+            if (state is _galleryBloc.Error) {
+              SnackBar(content: Text("Error"));
+            }
+          },
+          child:
+              BlocBuilder<_galleryBloc.GalleryBloc, _galleryBloc.GalleryState>(
+            builder: (context, state) {
+              if (state is _galleryBloc.Loading) {
+                return LoadingWidget(
+                  _buildBody(context, null),
+                );
+              } else if (state is _galleryBloc.Loaded) {
+                _images = state.images;
+                return _buildBody(context, _images);
+              } else {
+                return _buildBody(context, null);
+              }
+            },
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButtonWidget(),
         bottomNavigationBar: BottomAppBarWidget(),

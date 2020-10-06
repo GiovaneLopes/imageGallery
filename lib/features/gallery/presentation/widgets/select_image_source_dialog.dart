@@ -59,11 +59,13 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   // New picture dialog title
-                  Text(
-                    Strings(context).chooseImageSource,
-                    style: TextStyle(
-                      fontSize: Dimensions.getTextSize(context, 20),
-                      fontWeight: FontWeight.w300,
+                  Expanded(
+                    child: Text(
+                      Strings(context).chooseImageSource,
+                      style: TextStyle(
+                        fontSize: Dimensions.getTextSize(context, 20),
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                   // Close dialog icon
@@ -93,9 +95,9 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                     child: Row(
                       children: <Widget>[
                         // Camera icon
-                        Image.asset(
-                          Images.cameraIcon,
-                          width: Dimensions.getConvertedWidthSize(context, 35),
+                        Icon(
+                          FeatherIcons.camera,
+                          size: Dimensions.getConvertedWidthSize(context, 30),
                         ),
                         SizedBox(
                           width: Dimensions.getConvertedWidthSize(context, 14),
@@ -122,9 +124,9 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                     child: Row(
                       children: <Widget>[
                         // Gallery icon
-                        Image.asset(
-                          Images.galleryIcon,
-                          width: Dimensions.getConvertedWidthSize(context, 35),
+                        Icon(
+                          FeatherIcons.image,
+                          size: Dimensions.getConvertedWidthSize(context, 30),
                         ),
                         SizedBox(
                           width: Dimensions.getConvertedWidthSize(context, 14),
