@@ -60,7 +60,7 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                 children: <Widget>[
                   // New picture dialog title
                   Text(
-                    Strings.choose_image_source,
+                    Strings(context).chooseImageSource,
                     style: TextStyle(
                       fontSize: Dimensions.getTextSize(context, 20),
                       fontWeight: FontWeight.w300,
@@ -102,7 +102,7 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                         ),
                         // Camera title
                         Text(
-                          Strings.camera_title,
+                          Strings(context).cameraTitle,
                           style: TextStyle(
                             fontSize: Dimensions.getTextSize(context, 18),
                             fontWeight: FontWeight.w300,
@@ -131,7 +131,7 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
                         ),
                         // Gallery icon
                         Text(
-                          Strings.gallery_title,
+                          Strings(context).galleryTitle,
                           style: TextStyle(
                             fontSize: Dimensions.getTextSize(context, 18),
                             fontWeight: FontWeight.w300,

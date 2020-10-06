@@ -16,7 +16,7 @@ class VerifyEmailPage extends StatelessWidget {
         children: <Widget>[
           // App name
           Text(
-            Strings.app_name,
+            Strings(context).appName,
             style: TextStyle(
               fontSize: Dimensions.getTextSize(context, 28),
             ),
@@ -30,13 +30,13 @@ class VerifyEmailPage extends StatelessWidget {
             children: <Widget>[
               // Email verified button
               ButtonApp(
-                title: Strings.email_verified,
+                title: Strings(context).emailVerified,
                 onPressed: () {},
                 type: ButtonType.BUTTON_BLACK,
               ),
               // Email email button
               ButtonApp(
-                title: Strings.resend_title,
+                title: Strings(context).resendTitle,
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -82,7 +82,7 @@ class VerifyEmailPage extends StatelessWidget {
                         child:
                             // Email sent dialog title
                             Text(
-                          Strings.email_sent_successfully,
+                          Strings(context).emailSentSuccessfully,
                           style: TextStyle(
                             fontSize: Dimensions.getTextSize(context, 18),
                             fontWeight: FontWeight.w300,
@@ -103,7 +103,7 @@ class VerifyEmailPage extends StatelessWidget {
                   ),
                   // Ok dialog button
                   ButtonApp(
-                    title: Strings.ok_title,
+                    title: Strings(context).okTitle,
                     onPressed: () {
                       Navigator.pop(context);
                     },

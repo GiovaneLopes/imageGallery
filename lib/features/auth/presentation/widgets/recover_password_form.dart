@@ -40,7 +40,7 @@ class _RecoverPasswordFormState extends State<RecoverPasswordForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  Strings.recover_password,
+                  Strings(context).recoverPassword,
                   style: TextStyle(
                     fontSize: Dimensions.getTextSize(context, 24),
                     fontWeight: FontWeight.w300,
@@ -64,7 +64,7 @@ class _RecoverPasswordFormState extends State<RecoverPasswordForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CustomTextFormField(
-                      text: Strings.email_title,
+                      text: Strings(context).emailTitle,
                       textEditingController: _emailController,
                       isRequired: true,
                       onChanged: (String value) {
@@ -77,7 +77,7 @@ class _RecoverPasswordFormState extends State<RecoverPasswordForm> {
               ),
             ),
             ButtonApp(
-              title: Strings.send_title,
+              title: Strings(context).sendTitle,
               onPressed: () {
                 _submitForm(context);
               },

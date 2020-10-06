@@ -60,7 +60,7 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
                 children: <Widget>[
                   // App name
                   Text(
-                    Strings.app_name,
+                    Strings(context).appName,
                     style: TextStyle(
                       fontSize: Dimensions.getTextSize(context, 20),
                     ),

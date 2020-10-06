@@ -1,41 +1,82 @@
+import 'package:flutter/widgets.dart';
+import 'package:internationalization/internationalization.dart' as intl;
+
 class Strings {
+  final BuildContext context;
   // Masks
   static const String dateMask = "xx/xx/xxxx";
 
- // Validation empty message
-  static const String empty_input_message = "Esse campo não pode ser vazio";
-  // Invalid email message
-  static const String email_input_message = "Email inválido";
+  // Input validations
+  String emptyInputMessage;
+  String emailInputMessage;
+  String doubleFormatErrorMessage;
+
   // Auth page
-  static const String signin_title = "Sign in";
-  static const String register_title = "Register";
-  static const String double_format_error_message =
-      "Os campos devem ser iguais";
+  String signinTitle;
+  String registerTitle;
+  String emailVerified;
+  String emailSentSuccessfully;
+  String resendTitle;
+  String okTitle;
+  String nameTitle;
+  String emailTitle;
+  String passwordTitle;
+  String repeatPassword;
+  String recoverPassword;
+  String sendTitle;
+  String forgotPassword;
+  String appName;
+
   //Gallery screen
-  static const String new_picture_title = "New Picture";
-  static const String signout_title = "Sign out";
-  static const String signout_confirmation_text =
-      "Are your sure you want to sign out?";
-  static const String cancel_title = "Cancel";
-  static const String yes = "Yes";
-  static const String discription_title = "Discription";
-  static const String save_title = "Save";
-  static const String camera_title = "Camera";
-  static const String gallery_title = "Gallery";
-  static const String choose_image_source = "Choose image source";
-  // Verify email page
-  static const String email_verified = "Email verified";
-  static const String email_sent_successfully = "Email sent successfully";
-  static const String resend_title = "Resend";
-  static const String ok_title = "Ok";
-  //Register Form
-  static const String name_title = "Name";
-  static const String email_title = "Email";
-  static const String password_title = "Password";
-  static const String repeat_password = "Repeat password";
-  //Login Form
-  static const String recover_password = "Recover password";
-  static const String send_title = "Send";
-  static const String forgot_password = "Forgot password?";
-    static const String app_name = "Image Gallery";
+  String newPictureTitle;
+  String signoutTitle;
+  String signoutConfirmationText;
+  String cancelTitle;
+  String yes;
+  String discriptionTitle;
+  String saveTitle;
+  String cameraTitle;
+  String galleryTitle;
+  String chooseImageSource;
+
+  Strings(this.context) {
+    // Validation empty message
+    emptyInputMessage = intl.Strings.of(context).valueOf("empty_input_message");
+    // Invalid email message
+    emailInputMessage = intl.Strings.of(context).valueOf("email_input_message");
+
+    // Auth page
+    signinTitle = intl.Strings.of(context).valueOf("signin_title");
+    registerTitle = intl.Strings.of(context).valueOf("register_title");
+    doubleFormatErrorMessage =
+        intl.Strings.of(context).valueOf("double_format_error_message");
+    //Gallery screen
+    newPictureTitle = intl.Strings.of(context).valueOf("new_picture_title");
+    signoutTitle = intl.Strings.of(context).valueOf("signout_title");
+    signoutConfirmationText =
+        intl.Strings.of(context).valueOf("signout_confirmation_text");
+    cancelTitle = intl.Strings.of(context).valueOf("cancel_title");
+    yes = intl.Strings.of(context).valueOf("yes");
+    discriptionTitle = intl.Strings.of(context).valueOf("discription_title");
+    saveTitle = intl.Strings.of(context).valueOf("save_title");
+    cameraTitle = intl.Strings.of(context).valueOf("camera_title");
+    galleryTitle = intl.Strings.of(context).valueOf("gallery_title");
+    chooseImageSource = intl.Strings.of(context).valueOf("choose_image_source");
+    // Verify email page
+    emailVerified = intl.Strings.of(context).valueOf("email_verified");
+    emailSentSuccessfully =
+        intl.Strings.of(context).valueOf("email_sent_successfully");
+    resendTitle = intl.Strings.of(context).valueOf("resend_title");
+    okTitle = intl.Strings.of(context).valueOf("ok_title");
+    //Register Form
+    nameTitle = intl.Strings.of(context).valueOf("name_title");
+    emailTitle = intl.Strings.of(context).valueOf("email_title");
+    passwordTitle = intl.Strings.of(context).valueOf("password_title");
+    repeatPassword = intl.Strings.of(context).valueOf("repeat_password");
+    //Login Form
+    recoverPassword = intl.Strings.of(context).valueOf("recover_password");
+    sendTitle = intl.Strings.of(context).valueOf("send_title");
+    forgotPassword = intl.Strings.of(context).valueOf("forgot_password");
+    appName = intl.Strings.of(context).valueOf("app_name");
+  }
 }

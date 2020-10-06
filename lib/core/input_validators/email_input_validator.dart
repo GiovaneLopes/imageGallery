@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imageGallery/core/resources/strings.dart';
 
 import 'base_input_validator.dart';
 
@@ -9,7 +10,7 @@ class EmailInputValidator extends BaseInputValidator {
       if (!RegExp(
               r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
           .hasMatch(value)) {
-        return "Email inválido";
+        return Strings(context).emailInputMessage;
       }
     }
 

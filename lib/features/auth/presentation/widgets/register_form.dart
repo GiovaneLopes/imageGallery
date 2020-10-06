@@ -40,7 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
           children: <Widget>[
             // Register name field
             CustomTextFormField(
-              text: Strings.name_title,
+              text: Strings(context).nameTitle,
               textEditingController: _nameController,
               isRequired: true,
               onChanged: (String value) {
@@ -52,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             // Register email field
             CustomTextFormField(
-              text: Strings.email_title,
+              text: Strings(context).emailTitle,
               textEditingController: _emailController,
               isRequired: true,
               onChanged: (String value) {
@@ -65,7 +65,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             // Register password field
             CustomTextFormField(
-              text: Strings.password_title,
+              text: Strings(context).passwordTitle,
               textEditingController: _passwordController,
               isRequired: true,
               obscureText: true,
@@ -78,7 +78,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             // Register repeat password field
             CustomTextFormField(
-              text: Strings.repeat_password,
+              text: Strings(context).repeatPassword,
               textEditingController: _repeatPasswordController,
               isRequired: true,
               obscureText: true,
@@ -86,7 +86,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _formData[Keys.LABEL_REPEATPASSWORD] = value;
               },
               validator: CompareValuesInputValidator(
-                errorMessage: Strings.double_format_error_message,
+                errorMessage: Strings(context).doubleFormatErrorMessage,
                 valueToCompare: _formData[Keys.LABEL_PASSWORD],
               ),
             ),
@@ -95,7 +95,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             // Register button
             ButtonApp(
-              title: Strings.register_title,
+              title: Strings(context).registerTitle,
               onPressed: () {
                 _submitForm(context);
               },

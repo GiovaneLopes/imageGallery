@@ -49,11 +49,11 @@ class _AuthPageState extends State<AuthPage> {
                   tabs: <Widget>[
                     //Sign in tab
                     Tab(
-                      text: Strings.signin_title,
+                      text: Strings(context).signinTitle,
                     ),
                     //Register tab
                     Tab(
-                      text: Strings.register_title,
+                      text: Strings(context).registerTitle,
                     ),
                   ],
                   onTap: (index) {

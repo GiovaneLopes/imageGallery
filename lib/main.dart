@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:imageGallery/features/auth/presentation/pages/splash_page.dart';
 import 'package:imageGallery/features/gallery/presentation/pages/gallery_screen_page.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:provider/provider.dart';
 
 import 'core/ui/theme.dart';
@@ -9,6 +11,7 @@ import 'features/auth/presentation/pages/verify_email_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Internationalization.loadConfigurations();
   runApp(MyApp());
 }
 
@@ -33,8 +36,14 @@ class MaterialAppWithTheme extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: theme.getTheme(),
+        supportedLocales: suportedLocales,
+        localizationsDelegates: [
+          Internationalization.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => GalleryScreenPage(),
+          '/': (BuildContext context) => SplashPage(),
           '/authPage': (BuildContext context) => AuthPage(),
           '/galleryScreen': (BuildContext context) => GalleryScreenPage(),
           '/verifyEmailPage': (BuildContext context) => VerifyEmailPage(),
