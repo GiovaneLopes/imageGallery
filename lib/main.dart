@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:imageGallery/features/auth/presentation/pages/splash_page.dart';
@@ -11,6 +12,7 @@ import 'features/auth/presentation/pages/verify_email_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await Internationalization.loadConfigurations();
   runApp(MyApp());
 }
