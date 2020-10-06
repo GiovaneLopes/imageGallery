@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/keys.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
 import 'package:imageGallery/core/ui/custom_text_form_field.dart';
+import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart';
+import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dart';
 
 class NewPhotoDialog extends StatefulWidget {
   final File image;
@@ -111,7 +114,20 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                     // Save new picture
                     ButtonApp(
                       title: Strings(context).saveTitle,
-                      onPressed: () {},
+                      onPressed: () {
+                        BlocProvider.of<GalleryBloc>(context).add(
+                          SetImageGalleryEvent(
+                            imageGallery: ImageGallery(
+                              imageLink: '',
+                              name: _formData[Keys.LABEL_PHOTO_NAME],
+                              discription: _formData[Keys.LABEL_DISCRIPTION],
+                              time: DateTime.now().toString(),
+                            ),
+                            file: widget.image,
+                          ),
+                        );
+                        Navigator.pop(context);
+                      },
                       type: ButtonType.BUTTON_BLACK,
                     ),
                   ],

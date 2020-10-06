@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/images.dart';
 import 'package:imageGallery/core/resources/strings.dart';
+import 'package:imageGallery/core/ui/high_contrast_button.dart';
 import 'package:imageGallery/core/ui/theme.dart';
 import 'package:imageGallery/features/auth/presentation/widgets/register_form.dart';
 import 'package:imageGallery/features/auth/presentation/widgets/signin_form.dart';
@@ -28,6 +29,7 @@ class _AuthPageState extends State<AuthPage> {
           padding: Dimensions.getEdgeInsets(context, top: 80),
           child: Column(
             children: <Widget>[
+              HighContrastButton(),
               Image.asset(
                 Images.logo,
                 width: Dimensions.getConvertedWidthSize(

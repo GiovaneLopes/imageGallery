@@ -1,7 +1,10 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/images.dart';
-import 'package:imageGallery/features/gallery/presentation/models/image_gallery.dart';
+import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart';
+
+import 'no_images_widget.dart';
 
 class GalleryGrid extends StatelessWidget {
   final List<ImageGallery> images;
@@ -11,9 +14,7 @@ class GalleryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return (images == null || images.isEmpty)
         //Empty image list
-        ? Image.asset(
-            Images.emptyGallery,
-          )
+        ? NoImagesWidget()
         : SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

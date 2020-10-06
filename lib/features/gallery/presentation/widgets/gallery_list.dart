@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/images.dart';
-import 'package:imageGallery/features/gallery/presentation/models/image_gallery.dart';
+import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart';
+
+import 'no_images_widget.dart';
 
 class GalleryList extends StatelessWidget {
   final List<ImageGallery> images;
@@ -11,9 +13,7 @@ class GalleryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return (images == null || images.isEmpty)
         //Empty image list
-        ? Image.asset(
-            Images.emptyGallery,
-          )
+        ? NoImagesWidget()
         : SingleChildScrollView(
             child: Column(
               children: <Widget>[

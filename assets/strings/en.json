@@ -30,5 +30,6 @@
     "save_title": "Save",
     "camera_title": "Camera",
     "gallery_title": "Gallery",
-    "choose_image_source": "Choose image source"
+    "choose_image_source": "Choose image source",
+    "no_image_text": "No image"
 }

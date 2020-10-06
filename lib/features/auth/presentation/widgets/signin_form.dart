@@ -11,6 +11,8 @@ import 'package:imageGallery/core/utils/failure_to_messages_converter.dart';
 import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:imageGallery/features/auth/presentation/pages/verify_email_page.dart';
 import 'package:imageGallery/features/auth/presentation/widgets/recover_password_form.dart';
+import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dart'
+    as _galleryBloc;
 
 class SigninForm extends StatefulWidget {
   @override
@@ -134,6 +136,8 @@ class _SigninFormState extends State<SigninForm> {
             ),
           );
         } else if (state is Loaded) {
+          BlocProvider.of<_galleryBloc.GalleryBloc>(context)
+              .add(_galleryBloc.GetImagesGalleryEvent());
           Navigator.of(context).pushReplacementNamed('/galleryScreen');
         } else if (state is EmailNotVerifiedState) {
           Navigator.push(
