@@ -25,7 +25,7 @@ class SignoutDialog extends StatelessWidget {
               children: <Widget>[
                 // Sign out title
                 Text(
-                  Strings.signout_title,
+                  Strings(context).signoutTitle,
                   style: TextStyle(
                     fontSize: Dimensions.getTextSize(context, 24),
                     fontWeight: FontWeight.w300,
@@ -49,7 +49,7 @@ class SignoutDialog extends StatelessWidget {
                   child:
                       // Sign out confirmation text
                       Text(
-                    Strings.signout_confirmation_text,
+                    Strings(context).signoutConfirmationText,
                     style: TextStyle(
                       fontSize: Dimensions.getTextSize(context, 18),
                       fontWeight: FontWeight.w300,
@@ -60,13 +60,13 @@ class SignoutDialog extends StatelessWidget {
             ),
             // Yes button
             ButtonApp(
-              title: Strings.yes,
+              title: Strings(context).yes,
               onPressed: () {},
               type: ButtonType.BUTTON_WHITE,
             ),
             // No button
             ButtonApp(
-              title: Strings.cancel_title,
+              title: Strings(context).cancelTitle,
               onPressed: () {
                 Navigator.pop(context);
               },

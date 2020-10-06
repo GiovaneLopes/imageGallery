@@ -40,7 +40,7 @@ class _SigninFormState extends State<SigninForm> {
             Column(
               children: <Widget>[
                 CustomTextFormField(
-                  text: Strings.email_title,
+                  text: Strings(context).emailTitle,
                   textEditingController: _emailController,
                   isRequired: true,
                   onChanged: (String value) {
@@ -52,7 +52,7 @@ class _SigninFormState extends State<SigninForm> {
                 Padding(
                   padding: Dimensions.getEdgeInsets(context, top: 15),
                   child: CustomTextFormField(
-                    text: Strings.password_title,
+                    text: Strings(context).passwordTitle,
                     textEditingController: _passwordController,
                     obscureText: true,
                     suffixIcon: Icon(
@@ -81,7 +81,7 @@ class _SigninFormState extends State<SigninForm> {
               child: Container(
                 padding: Dimensions.getEdgeInsets(context, bottom: 37, top: 11),
                 child: Text(
-                  Strings.forgot_password,
+                  Strings(context).forgotPassword,
                   style: TextStyle(
                     fontSize: Dimensions.getTextSize(context, 14),
                     fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class _SigninFormState extends State<SigninForm> {
             ),
             // Sign in button
             ButtonApp(
-              title: Strings.signin_title,
+              title: Strings(context).signinTitle,
               onPressed: () {
                 _submitForm(context);
               },

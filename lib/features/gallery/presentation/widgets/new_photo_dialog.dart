@@ -50,7 +50,7 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                 children: <Widget>[
                   // New picture dialog title
                   Text(
-                    Strings.new_picture_title,
+                    Strings(context).newPictureTitle,
                     style: TextStyle(
                       fontSize: Dimensions.getTextSize(context, 20),
                       fontWeight: FontWeight.w300,
@@ -86,7 +86,7 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                   children: <Widget>[
                     // New picture name field
                     CustomTextFormField(
-                      text: Strings.name_title,
+                      text: Strings(context).nameTitle,
                       textEditingController: _nameController,
                       isRequired: true,
                       onChanged: (String value) {
@@ -98,7 +98,7 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                     ),
                     // New picture discription field
                     CustomTextFormField(
-                      text: Strings.discription_title,
+                      text: Strings(context).discriptionTitle,
                       textEditingController: _discriptionController,
                       isRequired: true,
                       onChanged: (String value) {
@@ -110,7 +110,7 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                     ),
                     // Save new picture
                     ButtonApp(
-                      title: Strings.save_title,
+                      title: Strings(context).saveTitle,
                       onPressed: () {},
                       type: ButtonType.BUTTON_BLACK,
                     ),
