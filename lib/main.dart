@@ -18,11 +18,16 @@ void main() async {
   Firebase.initializeApp();
   await di.init();
   await Internationalization.loadConfigurations();
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<AuthBloc>(
-      create: (_) => di.sl<AuthBloc>(),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (_) => di.sl<AuthBloc>(),
+        ),
+      ],
+      child: MyApp(),
     ),
-  ], child: MyApp()));
+  );
 }
 
 class MyApp extends StatelessWidget {

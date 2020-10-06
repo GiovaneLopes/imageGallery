@@ -1,18 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imageGallery/core/platform/networkinfo.dart';
 import 'package:imageGallery/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:imageGallery/features/auth/domain/usecases/confirm_email_verified.dart';
+import 'package:imageGallery/features/auth/domain/usecases/recover_password.dart';
+import 'package:imageGallery/features/auth/domain/usecases/send_email_verification.dart';
+import 'package:imageGallery/features/auth/domain/usecases/sign_out.dart';
 import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/auth/data/repositories/auth_respository_impl.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/domain/usecases/sign_up.dart';
+import 'features/auth/domain/usecases/sing_in.dart';
 
 final sl = GetIt.instance;
 
@@ -38,11 +42,21 @@ void _initAuth() {
   sl.registerFactory(
     () => AuthBloc(
       signUp: sl(),
+      signIn: sl(),
+      recoverPassword: sl(),
+      sendEmailVerification: sl(),
+      confirmEmailVerified: sl(),
+      signOut: sl(),
     ),
   );
 
   // Use Cases
   sl.registerLazySingleton(() => SignUp(sl()));
+  sl.registerLazySingleton(() => SignIn(sl()));
+  sl.registerLazySingleton(() => RecoverPassword(sl()));
+  sl.registerLazySingleton(() => SendEmailVerification(sl()));
+  sl.registerLazySingleton(() => ConfirmEmailVerified(sl()));
+  sl.registerLazySingleton(() => SignOut(sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(

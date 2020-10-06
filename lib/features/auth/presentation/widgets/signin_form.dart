@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/input_validators/email_input_validator.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/core/resources/keys.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
 import 'package:imageGallery/core/ui/custom_text_form_field.dart';
+import 'package:imageGallery/core/ui/loading_widget.dart';
+import 'package:imageGallery/core/utils/failure_to_messages_converter.dart';
+import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:imageGallery/features/auth/presentation/pages/verify_email_page.dart';
 import 'package:imageGallery/features/auth/presentation/widgets/recover_password_form.dart';
 
 class SigninForm extends StatefulWidget {
@@ -108,10 +113,54 @@ class _SigninFormState extends State<SigninForm> {
       return;
     }
     _formKey.currentState.save();
+    BlocProvider.of<AuthBloc>(context).add(
+      SignInEvent(
+        email: _formData[Keys.LABEL_EMAIL],
+        password: _formData[Keys.LABEL_PASSWORD],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is Error) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                FailureToMessagesConverter().convert(context, state.failure),
+              ),
+            ),
+          );
+        } else if (state is Loaded) {
+          Navigator.of(context).pushReplacementNamed('/galleryScreen');
+        } else if (state is EmailNotVerifiedState) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return VerifyEmailPage();
+              },
+            ),
+          );
+        } else if (state is RecoverPasswordState) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                Strings(context).recoverPassword,
+              ),
+            ),
+          );
+        }
+      },
+      child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        if (state is Loading) {
+          return LoadingWidget(_buildBody(context));
+        } else {
+          return _buildBody(context);
+        }
+      }),
+    );
   }
 }
