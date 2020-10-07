@@ -5,22 +5,19 @@ class ImageGallery extends Equatable {
   final String id;
   String imageLink;
   String name;
-  String discription;
-  String time;
+  int order;
 
   ImageGallery(
       {this.id,
       @required this.imageLink,
       @required this.name,
-      @required this.discription,
-      @required this.time});
+      @required this.order,});
 
   @override
   List<Object> get props => [
         id,
         imageLink,
         name,
-        discription,
-        time,
+        order,
       ];
 }

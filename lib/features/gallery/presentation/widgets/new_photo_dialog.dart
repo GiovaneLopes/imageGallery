@@ -13,8 +13,9 @@ import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dar
 
 class NewPhotoDialog extends StatefulWidget {
   final File image;
-
-  const NewPhotoDialog({Key key, this.image}) : super(key: key);
+  final int listLength;
+  const NewPhotoDialog({Key key, this.image, this.listLength})
+      : super(key: key);
   @override
   _NewPhotoDialogState createState() => _NewPhotoDialogState();
 }
@@ -23,13 +24,11 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
   final Map<String, dynamic> _formData = Map<String, dynamic>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _nameController;
-  TextEditingController _discriptionController;
 
   @override
   void initState() {
     _nameController = TextEditingController(text: _formData[Keys.LABEL_EMAIL]);
-    _discriptionController =
-        TextEditingController(text: _formData[Keys.LABEL_PASSWORD]);
+
     super.initState();
   }
 
@@ -99,18 +98,6 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                     SizedBox(
                       height: Dimensions.getConvertedHeightSize(context, 20),
                     ),
-                    // New picture discription field
-                    CustomTextFormField(
-                      text: Strings(context).discriptionTitle,
-                      textEditingController: _discriptionController,
-                      isRequired: true,
-                      onChanged: (String value) {
-                        _formData[Keys.LABEL_DISCRIPTION] = value;
-                      },
-                    ),
-                    SizedBox(
-                      height: Dimensions.getConvertedHeightSize(context, 15),
-                    ),
                     // Save new picture
                     ButtonApp(
                       title: Strings(context).saveTitle,
@@ -120,8 +107,7 @@ class _NewPhotoDialogState extends State<NewPhotoDialog> {
                             imageGallery: ImageGallery(
                               imageLink: '',
                               name: _formData[Keys.LABEL_PHOTO_NAME],
-                              discription: _formData[Keys.LABEL_DISCRIPTION],
-                              time: DateTime.now().toString(),
+                              order: widget.listLength + 1,
                             ),
                             file: widget.image,
                           ),

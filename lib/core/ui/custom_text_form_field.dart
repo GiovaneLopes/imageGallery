@@ -88,27 +88,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         labelText: widget.text,
         contentPadding: Dimensions.getEdgeInsetsAll(context, 10),
         hoverColor: Colors.grey,
-        focusedBorder: OutlineInputBorder(
-          gapPadding: Dimensions.getConvertedWidthSize(context, 5.0),
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: Dimensions.getConvertedWidthSize(context, 2.0),
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          gapPadding: Dimensions.getConvertedWidthSize(context, 2.0),
+        enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: Dimensions.getConvertedWidthSize(context, 1.0),
           ),
         ),
-        errorBorder: OutlineInputBorder(
-          gapPadding: Dimensions.getConvertedWidthSize(context, 2.0),
+        errorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.red,
             width: Dimensions.getConvertedWidthSize(context, 1.0),
           ),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          gapPadding: Dimensions.getConvertedWidthSize(context, 2.0),
+        focusedErrorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.red,
             width: Dimensions.getConvertedWidthSize(context, 1.0),

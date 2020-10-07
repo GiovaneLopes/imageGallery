@@ -49,31 +49,6 @@ class GalleryList extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // Image date
-                              Text(
-                                (data.time == null) ? "" : data.time.toString(),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding:
-                              Dimensions.getEdgeInsets(context, bottom: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                // Image discription
-                                child: Text(
-                                  (data.discription == null)
-                                      ? ""
-                                      : data.discription,
-                                  style: TextStyle(
-                                    fontSize:
-                                        Dimensions.getTextSize(context, 14),
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         ),

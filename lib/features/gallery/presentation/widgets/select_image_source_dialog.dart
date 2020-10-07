@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
-import 'package:imageGallery/core/resources/images.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/new_photo_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SelectImageSourceDialog extends StatefulWidget {
+  final int listLength;
+
+  const SelectImageSourceDialog({Key key, this.listLength}) : super(key: key);
   @override
   _SelectImageSourceDialogState createState() =>
       _SelectImageSourceDialogState();
@@ -34,7 +36,10 @@ class _SelectImageSourceDialogState extends State<SelectImageSourceDialog> {
         barrierDismissible: true,
         builder: (BuildContext context) {
           // Add new pictture Dialog
-          return NewPhotoDialog(image: _image);
+          return NewPhotoDialog(
+            image: _image,
+            listLength: widget.listLength,
+          );
         },
       );
     }

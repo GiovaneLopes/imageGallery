@@ -2,7 +2,6 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
-import 'package:imageGallery/core/resources/images.dart';
 import 'package:imageGallery/core/resources/strings.dart';
 import 'package:imageGallery/core/ui/button_app.dart';
 import 'package:imageGallery/core/ui/loading_widget.dart';
@@ -28,7 +27,32 @@ class VerifyEmailPage extends StatelessWidget {
           // Verify email image
           Padding(
             padding: Dimensions.getEdgeInsets(context, top: 35),
-            child: Image.asset(Images.verifyEmail),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  FeatherIcons.mail,
+                  size: Dimensions.getConvertedWidthSize(context, 50),
+                ),
+                SizedBox(
+                  height: Dimensions.getConvertedHeightSize(context, 20),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        Strings(context).emailVerificationText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: Dimensions.getTextSize(context, 18),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
           Column(
             children: <Widget>[
@@ -36,7 +60,8 @@ class VerifyEmailPage extends StatelessWidget {
               ButtonApp(
                 title: Strings(context).emailVerified,
                 onPressed: () {
-                  BlocProvider.of<AuthBloc>(context).add(ConfirmEmailVerifiedEvent());
+                  BlocProvider.of<AuthBloc>(context)
+                      .add(ConfirmEmailVerifiedEvent());
                 },
                 type: ButtonType.BUTTON_BLACK,
               ),

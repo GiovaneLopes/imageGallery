@@ -1,3 +1,4 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imageGallery/core/input_validators/email_input_validator.dart';
@@ -50,6 +51,10 @@ class _SigninFormState extends State<SigninForm> {
                   text: Strings(context).emailTitle,
                   textEditingController: _emailController,
                   isRequired: true,
+                  suffixIcon: Icon(
+                    FeatherIcons.mail,
+                    color: Colors.grey,
+                  ),
                   onChanged: (String value) {
                     _formData[Keys.LABEL_EMAIL] = value.trim();
                   },
@@ -63,8 +68,8 @@ class _SigninFormState extends State<SigninForm> {
                     textEditingController: _passwordController,
                     obscureText: true,
                     suffixIcon: Icon(
-                      Icons.lock_outline,
-                      color: Colors.white,
+                      FeatherIcons.lock,
+                      color: Colors.grey,
                     ),
                     isRequired: true,
                     onChanged: (String value) {

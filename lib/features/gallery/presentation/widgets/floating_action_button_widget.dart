@@ -4,6 +4,9 @@ import 'package:imageGallery/core/resources/dimensions.dart';
 import 'package:imageGallery/features/gallery/presentation/widgets/select_image_source_dialog.dart';
 
 class FloatingActionButtonWidget extends StatelessWidget {
+  final int listLength;
+
+  const FloatingActionButtonWidget({Key key, this.listLength}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -14,7 +17,7 @@ class FloatingActionButtonWidget extends StatelessWidget {
           barrierDismissible: true,
           builder: (BuildContext context) {
             // Select image source Dialog
-            return SelectImageSourceDialog();
+            return SelectImageSourceDialog(listLength: listLength,);
           },
         );
       },

@@ -26,7 +26,7 @@ class GalleryRemoteDataSourceImpl extends GalleryRemoteDataSource {
   Future<List<ImageGallery>> setImageGallery(
       ImageGalleryModel image, String userId, File file) async {
     try {
-      var fileName = userId +
+      final fileName = userId +
           DateTime.now().millisecondsSinceEpoch.toString().replaceAll(" ", "_");
 
       final StorageReference firebaseStorageRef =
@@ -36,7 +36,7 @@ class GalleryRemoteDataSourceImpl extends GalleryRemoteDataSource {
 
       var downloadUrl = await storageSnapshot.ref.getDownloadURL();
       image.imageLink = downloadUrl;
-      final DocumentReference docRef = firestore
+      DocumentReference docRef = firestore
           .collection(_collectionName)
           .doc(userId)
           .collection(_subCollectionName)

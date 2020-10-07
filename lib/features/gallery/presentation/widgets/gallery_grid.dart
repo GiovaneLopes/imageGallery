@@ -1,7 +1,5 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/resources/dimensions.dart';
-import 'package:imageGallery/core/resources/images.dart';
 import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart';
 
 import 'no_images_widget.dart';
