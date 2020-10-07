@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget {
       body: Container(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
-              if (state is Error) {
+            if (state is Error) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.failure.toString()),
@@ -46,11 +46,22 @@ class SplashPage extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        child: Image.asset(
-          Images.logo,
-          width: Dimensions.getConvertedWidthSize(context, 741),
-          height: Dimensions.getConvertedHeightSize(context, 265),
-          fit: BoxFit.contain,
+        child: Column(
+          children: [
+            Image.asset(
+              Images.logo,
+              width: Dimensions.getConvertedWidthSize(
+                context,
+                200,
+              ),
+            ),
+            Text(
+              "Image Gallery",
+              style: TextStyle(
+                fontSize: Dimensions.getTextSize(context, 22),
+              ),
+            ),
+          ],
         ),
       ),
     );

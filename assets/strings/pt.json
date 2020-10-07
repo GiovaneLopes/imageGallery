@@ -19,6 +19,7 @@
     "signin_title": "Login",
     "register_title": "Cadastro",
     "app_name": "Image Gallery",
+    "email_verification_text": "Enviamos um email de confirmação",
 
     "IMAGE_GALLERY_COMMENT_SECTION_GALLERY": "----------",
     "new_picture_title": "Nova imagem",

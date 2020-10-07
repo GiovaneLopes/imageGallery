@@ -41,7 +41,7 @@ dependencies:
   # Feather icons
   feather_icons_flutter: ^4.7.4
   # Image picker
-  image_picker: ^0.6.7+4
+  image_picker: ^0.6.7+11
   # Local cache
   shared_preferences: ^0.5.12
   # Internationalization
@@ -52,6 +52,8 @@ dependencies:
   firebase_database: ^4.1.0
   firebase_storage: ^4.0.1
   firebase_core: ^0.5.0
+  # Intl
+  intl:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

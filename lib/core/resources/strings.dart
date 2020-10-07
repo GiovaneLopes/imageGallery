@@ -26,6 +26,7 @@ class Strings {
   String sendTitle;
   String forgotPassword;
   String appName;
+  String emailVerificationText;
 
   //Gallery screen
   String newPictureTitle;
@@ -70,6 +71,7 @@ class Strings {
         intl.Strings.of(context).valueOf("email_sent_successfully");
     resendTitle = intl.Strings.of(context).valueOf("resend_title");
     okTitle = intl.Strings.of(context).valueOf("ok_title");
+    emailVerificationText = intl.Strings.of(context).valueOf("email_verification_text");
     //Register Form
     nameTitle = intl.Strings.of(context).valueOf("name_title");
     emailTitle = intl.Strings.of(context).valueOf("email_title");

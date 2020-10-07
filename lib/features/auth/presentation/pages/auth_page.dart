@@ -26,16 +26,29 @@ class _AuthPageState extends State<AuthPage> {
       height: double.infinity,
       child: SingleChildScrollView(
         child: Container(
-          padding: Dimensions.getEdgeInsets(context, top: 80),
+          padding: Dimensions.getEdgeInsets(context, top: 50),
           child: Column(
             children: <Widget>[
-              HighContrastButton(),
-              Image.asset(
-                Images.logo,
-                width: Dimensions.getConvertedWidthSize(
-                  context,
-                  200,
-                ),
+              Padding(
+                padding: Dimensions.getEdgeInsets(context, right: 30),
+                child: HighContrastButton(),
+              ),
+              Column(
+                children: [
+                  Image.asset(
+                    Images.logo,
+                    width: Dimensions.getConvertedWidthSize(
+                      context,
+                      200,
+                    ),
+                  ),
+                  Text(
+                    "Image Gallery",
+                    style: TextStyle(
+                      fontSize: Dimensions.getTextSize(context, 22),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 padding: Dimensions.getEdgeInsets(context,

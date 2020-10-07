@@ -19,6 +19,7 @@
     "signin_title": "Sign in",
     "register_title": "Sign up",
     "app_name": "Image Gallery",
+    "email_verification_text": "We sent a confirmation email",
 
     "IMAGE_GALLERY_COMMENT_SECTION_GALLERY": "----------",
     "new_picture_title": "New image",

@@ -3,18 +3,8 @@ import 'package:imageGallery/features/gallery/domain/entities/image_gallery.dart
 import 'package:meta/meta.dart';
 
 class ImageGalleryModel extends ImageGallery {
-  ImageGalleryModel(
-      {id,
-      @required name,
-      @required time,
-      @required discription,
-      @required imageLink})
-      : super(
-            id: id,
-            name: name,
-            time: time,
-            discription: discription,
-            imageLink: imageLink);
+  ImageGalleryModel({id, @required name, @required imageLink, @required order})
+      : super(id: id, name: name, imageLink: imageLink, order: order);
 
   factory ImageGalleryModel.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -22,9 +12,8 @@ class ImageGalleryModel extends ImageGallery {
     return ImageGalleryModel(
       id: json["id"],
       name: json["name"],
-      time: json["time"],
-      discription: json["discription"],
       imageLink: json["imageLink"],
+      order: json["order"],
     );
   }
 
@@ -32,9 +21,8 @@ class ImageGalleryModel extends ImageGallery {
     Map<String, dynamic> json = Map<String, dynamic>();
     if (id != null) json['id'] = id;
     if (name != null) json['name'] = name;
-    if (discription != null) json['discription'] = discription;
     if (imageLink != null) json['imageLink'] = imageLink;
-    if (time != null) json['time'] = time;
+    if (order != null) json['order'] = order;
 
     return json;
   }
@@ -43,11 +31,11 @@ class ImageGalleryModel extends ImageGallery {
     if (imageGallery == null) return null;
 
     return ImageGalleryModel(
-        id: imageGallery.id,
-        name: imageGallery.name,
-        discription: imageGallery.discription,
-        imageLink: imageGallery.imageLink,
-        time: imageGallery.time);
+      id: imageGallery.id,
+      name: imageGallery.name,
+      imageLink: imageGallery.imageLink,
+      order: imageGallery.order,
+    );
   }
 
   factory ImageGalleryModel.fromDocumentSnapshot(
