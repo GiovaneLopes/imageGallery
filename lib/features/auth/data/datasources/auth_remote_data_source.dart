@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:imageGallery/core/error/exception.dart';
+import 'package:imageGallery/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,7 @@ abstract class AuthRemoteDataSource {
   Future<String> signIn(String email, String password);
   Future<void> sendEmailVerification();
   Future<void> signOut();
-  Future<bool> confirmEmailVerified();
+  Future<User> confirmEmailVerified();
   Future<void> recoverPassword(String email);
 }
 
@@ -25,7 +26,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<String> signUp(UserModel userModel, String password) async {
-    String userToken;
+    String userId;
     bool isEmailVerified;
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
@@ -34,7 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       DocumentReference newDoc =
           firebaseFirestore.collection("user").doc(result.user.uid);
       newDoc.set(userModel.toJson());
-      userToken = result.user.uid;
+      userId = result.user.uid;
       isEmailVerified = result.user.emailVerified;
     } on PlatformException catch (e) {
       throw e;
@@ -42,11 +43,14 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       print("[AuthRemoteDataSourceImpl] ${e.toString()}");
       throw ServerException();
     }
-
-    if (userToken == null) {
+    if (userId == null) {
       throw ServerException();
     } else {
-      return userToken;
+      if (!isEmailVerified) {
+        throw EmailNotVerifiedException();
+      } else {
+        return userId;
+      }
     }
   }
 
@@ -59,11 +63,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> confirmEmailVerified() async {
+  Future<User> confirmEmailVerified() async {
     return await sendRequest(makeRequest: () async {
       User user = firebaseAuth.currentUser;
       user.reload();
-      return user.emailVerified;
+      print(user);
+      return user;
     });
   }
 

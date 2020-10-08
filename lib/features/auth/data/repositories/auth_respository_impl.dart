@@ -59,8 +59,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, bool>> confirmEmailVerified() async {
     if (await networkInfo.isConnected) {
       try {
-        var sendRequestResult = await remoteDataSource.confirmEmailVerified();
-        return Right(sendRequestResult);
+        final sendRequestResult = await remoteDataSource.confirmEmailVerified();
+        localDataSource.cacheUserToken(sendRequestResult.uid);
+        return Right(sendRequestResult.emailVerified);
       } on ServerException {
         return Left(ServerFailure());
       } on PlatformException catch (e) {

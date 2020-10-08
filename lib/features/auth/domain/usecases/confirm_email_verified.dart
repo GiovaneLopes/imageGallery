@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:imageGallery/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:imageGallery/core/usecases/usecase.dart';

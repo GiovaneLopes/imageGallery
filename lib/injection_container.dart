@@ -103,7 +103,7 @@ void _initGallery() {
 
   // Use Cases
   sl.registerLazySingleton(() => SetImageGallery(sl()));
-    sl.registerLazySingleton(() => GetUserImages(sl()));
+  sl.registerLazySingleton(() => GetUserImages(sl()));
 
   // Repositories
   sl.registerLazySingleton<GalleryRepository>(

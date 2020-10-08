@@ -60,7 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield Loading();
       var userOrError = await signUp(
           sign_up.Params(user: event.user, password: event.password));
-      yield* _eitherEmailSentOrErrorStateWithString(userOrError);
+      yield* _eitherLoadedOrErrorStateWithString(userOrError);
     } else if (event is ResentEmailEvent) {
       yield Loading();
       var failureOrVoid = await sendEmailVerification(NoParams());
@@ -68,6 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is ConfirmEmailVerifiedEvent) {
       yield Loading();
       var failureOrBool = await confirmEmailVerified(NoParams());
+      print("failureOrBool $failureOrBool");
       yield* _eitherLoadedOrErrorStateWithBool(failureOrBool);
     } else if (event is SignInEvent) {
       yield Loading();
@@ -102,21 +103,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       },
       (userId) => Loaded(),
-    );
-  }
-
-  Stream<AuthState> _eitherEmailSentOrErrorStateWithString(
-    Either<Failure, String> failureOrString,
-  ) async* {
-    yield failureOrString.fold(
-      (failure) {
-        if (failure is EmailNotVerifiedFailure) {
-          return EmailNotVerifiedState();
-        } else {
-          return Error(failure: failure);
-        }
-      },
-      (userId) => EmailNotVerifiedState(),
     );
   }
 
