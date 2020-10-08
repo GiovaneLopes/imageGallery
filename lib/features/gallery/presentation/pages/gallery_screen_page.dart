@@ -27,7 +27,7 @@ class _GalleryScreenPageState extends State<GalleryScreenPage> {
   @override
   void initState() {
     super.initState();
-    _images = List<ImageGallery>();
+    _images = null;
   }
 
   Widget _buildBody(BuildContext context, List<ImageGallery> images) {

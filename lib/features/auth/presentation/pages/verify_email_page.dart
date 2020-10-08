@@ -7,6 +7,8 @@ import 'package:imageGallery/core/ui/button_app.dart';
 import 'package:imageGallery/core/ui/loading_widget.dart';
 import 'package:imageGallery/core/utils/failure_to_messages_converter.dart';
 import 'package:imageGallery/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:imageGallery/features/gallery/presentation/bloc/gallery_bloc.dart'
+    as _galleryBloc;
 
 class VerifyEmailPage extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
@@ -156,6 +158,8 @@ class VerifyEmailPage extends StatelessWidget {
             ),
           );
         } else if (state is Loaded) {
+          BlocProvider.of<_galleryBloc.GalleryBloc>(context)
+              .add(_galleryBloc.GetImagesGalleryEvent());
           Navigator.pushNamed(context, "/galleryScreen");
         } else if (state is EmailResent) {
           showDialog(
