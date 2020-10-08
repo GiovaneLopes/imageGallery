@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:imageGallery/core/error/failure.dart';
+import 'package:imageGallery/core/resources/strings.dart';
 
 class FailureToMessagesConverter {
   String convert(BuildContext context, Failure failure) {
     if (failure is PlatformFailure)
       return failure.message;
     else if (failure is ServerFailure)
-      return "Ocorreu um erro no servidor";
+      return Strings(context).messageServerFailure;
     else if (failure is NoInternetConnectionFailure)
-      return "Você não possui conexão com a internet";
+      return Strings(context).messageNoInternetFailure;
     else if (failure is CacheFailure)
-      return "Tivemos problemas ao recuperar seus dados";
+      return Strings(context).messageCacheFailure;
     else
-      return "Ocorreu um erro inesperado.";
+      return Strings(context).messageUnknownError;
   }
 }

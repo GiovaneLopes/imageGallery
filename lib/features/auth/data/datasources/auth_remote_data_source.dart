@@ -18,8 +18,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firebaseFirestore;
 
-  AuthRemoteDataSourceImpl(
-      {@required this.firebaseAuth, @required this.firebaseFirestore});
+  AuthRemoteDataSourceImpl({
+    @required this.firebaseAuth,
+    @required this.firebaseFirestore,
+  });
 
   @override
   Future<String> signUp(UserModel userModel, String password) async {
@@ -32,7 +34,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       DocumentReference newDoc =
           firebaseFirestore.collection("user").doc(result.user.uid);
       newDoc.set(userModel.toJson());
-      userToken = await result.user.getIdToken();
+      userToken = result.user.uid;
       isEmailVerified = result.user.emailVerified;
     } on PlatformException catch (e) {
       throw e;
@@ -43,8 +45,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
     if (userToken == null) {
       throw ServerException();
-    } else if (!isEmailVerified) {
-      throw EmailNotVerifiedException();
     } else {
       return userToken;
     }
@@ -80,7 +80,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     if (userId == null) {
       throw ServerException();
     } else if (!isEmailVerified) {
-      throw EmailNotVerifiedException();
+      throw EmailNotVerifiedException;
     } else {
       return userId;
     }

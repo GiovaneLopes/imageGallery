@@ -24,10 +24,10 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, String>> signUp(User user, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final String tokenToSave =
+        final String userId =
             await remoteDataSource.signUp(UserModel.fromEntity(user), password);
-        localDataSource.cacheUserToken(tokenToSave);
-        return Right(tokenToSave);
+        localDataSource.cacheUserToken(userId);
+        return Right(userId);
       } on ServerException {
         return Left(ServerFailure());
       } on PlatformException catch (e) {
@@ -121,15 +121,6 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, EnumUserStatus>> getUserStatus() async {
-    String userId;
-    try {
-      userId = await localDataSource.getUserToken();
-      if (userId == null) {
-        return Right(EnumUserStatus.IsntLoggedIn);
-      }
-    } on CacheException {
-      return Right(EnumUserStatus.IsntLoggedIn);
-    }
     if (await networkInfo.isConnected) {
       try {
         String user = await localDataSource.getUserToken();

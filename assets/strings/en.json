@@ -1,4 +1,10 @@
 {
+    "IMAGE_GALLERY_COMMENT_SECTION_FAILURE_MESSAGES": "----------",
+    "message_server_failure": "We have a server error.",
+    "message_no_internet_failure": "You don't have internet connection",
+    "message_cache_failure": "We have a problem retrieving your data",
+    "message_unknown_error": "We have a unknown error",
+    
     "IMAGE_GALLERY_COMMENT_SECTION_INPUT_VALIDATION": "----------",
     "empty_input_message": "This field cannot be empty",
     "email_input_message": "Invalid email",
