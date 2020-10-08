@@ -6,6 +6,12 @@ class Strings {
   // Masks
   static const String dateMask = "xx/xx/xxxx";
 
+  // Failure To Message
+  String messageServerFailure;
+  String messageNoInternetFailure;
+  String messageCacheFailure;
+  String messageUnknownError;
+
   // Input validations
   String emptyInputMessage;
   String emailInputMessage;
@@ -42,6 +48,15 @@ class Strings {
   String noImage;
 
   Strings(this.context) {
+    // Failure To Message
+    messageServerFailure =
+        intl.Strings.of(context).valueOf("message_server_failure");
+    messageNoInternetFailure =
+        intl.Strings.of(context).valueOf("message_no_internet_failure");
+    messageCacheFailure =
+        intl.Strings.of(context).valueOf("message_cache_failure");
+    messageUnknownError =
+        intl.Strings.of(context).valueOf("message_unknown_error");
     // Validation empty message
     emptyInputMessage = intl.Strings.of(context).valueOf("empty_input_message");
     // Invalid email message
@@ -71,7 +86,8 @@ class Strings {
         intl.Strings.of(context).valueOf("email_sent_successfully");
     resendTitle = intl.Strings.of(context).valueOf("resend_title");
     okTitle = intl.Strings.of(context).valueOf("ok_title");
-    emailVerificationText = intl.Strings.of(context).valueOf("email_verification_text");
+    emailVerificationText =
+        intl.Strings.of(context).valueOf("email_verification_text");
     //Register Form
     nameTitle = intl.Strings.of(context).valueOf("name_title");
     emailTitle = intl.Strings.of(context).valueOf("email_title");

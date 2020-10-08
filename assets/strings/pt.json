@@ -1,4 +1,10 @@
 {
+    "URINAPP_COMMENT_SECTION_FAILURE_MESSAGES": "----------",
+    "message_server_failure": "Ocorreu um erro no servidor",
+    "message_no_internet_failure": "Você não possui conexão com a internet",
+    "message_cache_failure": "Tivemos problemas ao recuperar seus dados",
+    "message_unknown_error": "Ocorreu um erro inesperado.",
+
     "IMAGE_GALLERY_COMMENT_SECTION_INPUT_VALIDATION": "----------",
     "empty_input_message": "Esse campo não pode ser vazio",
     "email_input_message": "Email inválido",
